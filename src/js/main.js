@@ -3,9 +3,7 @@ import Slider from "./modules/slider";
 window.addEventListener('DOMContentLoaded', () => {
     "use strict";
 
-    const slider = new Slider('.page', '.next');
+    const slider = new Slider('.slider', '.next');
     slider.render();
-    // const slider2 = new Slider('.moduleapp', '.next');
-    // slider2.render();
 });
 

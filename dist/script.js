@@ -935,9 +935,8 @@ __webpack_require__.r(__webpack_exports__);
 window.addEventListener('DOMContentLoaded', function () {
   "use strict";
 
-  var slider = new _modules_slider__WEBPACK_IMPORTED_MODULE_0__["default"]('.page', '.next');
-  slider.render(); // const slider2 = new Slider('.moduleapp', '.next');
-  // slider2.render();
+  var slider = new _modules_slider__WEBPACK_IMPORTED_MODULE_0__["default"]('.slider', '.next');
+  slider.render();
 });
 
 /***/ }),
