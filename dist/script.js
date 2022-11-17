@@ -3128,11 +3128,11 @@ function (_Slider) {
           slide.querySelector('.card__title').style.opacity = '0.4';
           slide.querySelector('.card__controls-arrow').style.opacity = '0';
         }
-      });
+      }); // if (!this.slides[0].closest('button')) {
+      //     this.slides[0].classList.add(this.activeClass);
+      // }
 
-      if (!this.slides[0].closest('button')) {
-        this.slides[0].classList.add(this.activeClass);
-      }
+      this.slides[0].classList.add(this.activeClass);
 
       if (this.animate) {
         this.slides[0].querySelector('.card__title').style.opacity = '1';
@@ -3142,18 +3142,45 @@ function (_Slider) {
   }, {
     key: "nextSlide",
     value: function nextSlide() {
-      if (this.slides[1].tagName == "BUTTON" && this.slides[2].tagName == "BUTTON") {
-        this.container.appendChild(this.slides[0]); //Slide
-
-        this.container.appendChild(this.slides[1]); //Btn
-
-        this.container.appendChild(this.slides[2]); //Btn
-      } else if (this.slides[1].tagName == "BUTTON") {
-        this.container.appendChild(this.slides[0]); //Slide
-
-        this.container.appendChild(this.slides[1]); //Btn
+      // if (this.slides[1].tagName == "BUTTON" && this.slides[2].tagName == "BUTTON") {
+      //     this.container.appendChild(this.slides[0]); //Slide
+      //     this.container.appendChild(this.slides[0]); //Btn
+      //     this.container.appendChild(this.slides[0]); //Btn
+      // } else if (this.slides[1].tagName == "BUTTON") {
+      //     this.container.appendChild(this.slides[0]); //Slide
+      //     this.container.appendChild(this.slides[0]); //Btn
+      // } else {
+      //     this.container.appendChild(this.slides[0]);
+      // }
+      // this.decorizeSlides();
+      if (this.container.querySelector('button')) {
+        var length = this.slides.length - this.container.querySelectorAll('button').length;
+        var active = this.slides[0];
+        this.container.insertBefore(active, this.slides[length]);
       } else {
         this.container.appendChild(this.slides[0]);
+      }
+
+      this.decorizeSlides();
+    }
+  }, {
+    key: "prevSlide",
+    value: function prevSlide() {
+      // for (let i = this.slides.length - 1; i > 0; i--) {
+      //     if (this.slides[i].tagName !== "BUTTON") {
+      //         // this.container.prepend(this.slides[this.slides.length - 1]);
+      //         let active = this.slides[i];
+      //         this.container.insertBefore(active, this.slides[0]);
+      //         this.decorizeSlides();
+      //         break;
+      //     }
+      // }
+      if (this.container.querySelector('button')) {
+        var length = this.slides.length - this.container.querySelectorAll('button').length;
+        var active = this.slides[length - 1];
+        this.container.insertBefore(active, this.slides[0]);
+      } else {
+        this.container.insertBefore(this.slides[this.slides.length - 1], this.slides[0]);
       }
 
       this.decorizeSlides();
@@ -3167,18 +3194,7 @@ function (_Slider) {
         return _this3.nextSlide();
       });
       this.prev.addEventListener('click', function () {
-        for (var i = _this3.slides.length - 1; i > 0; i--) {
-          if (_this3.slides[i].tagName !== "BUTTON") {
-            // this.container.prepend(this.slides[this.slides.length - 1]);
-            var active = _this3.slides[i];
-
-            _this3.container.insertBefore(active, _this3.slides[0]);
-
-            _this3.decorizeSlides();
-
-            break;
-          }
-        }
+        return _this3.prevSlide();
       });
     }
   }, {
@@ -3201,14 +3217,25 @@ function (_Slider) {
 
       if (this.autoplay) {
         this.activateAnimation();
+        this.container.addEventListener('mouseenter', function () {
+          clearInterval(_this5.paused);
+        });
+        this.container.addEventListener('mouseleave', function () {
+          _this5.activateAnimation();
+        });
+        this.next.addEventListener('mouseenter', function () {
+          clearInterval(_this5.paused);
+        });
+        this.next.addEventListener('mouseleave', function () {
+          _this5.activateAnimation();
+        });
+        this.prev.addEventListener('mouseenter', function () {
+          clearInterval(_this5.paused);
+        });
+        this.prev.addEventListener('mouseleave', function () {
+          _this5.activateAnimation();
+        });
       }
-
-      this.container.addEventListener('mouseenter', function () {
-        clearInterval(_this5.paused);
-      });
-      this.container.addEventListener('mouseleave', function () {
-        _this5.activateAnimation();
-      });
     }
   }]);
 
