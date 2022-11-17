@@ -37,7 +37,7 @@ export default class VideoPlayer {
         tag.src = "https://www.youtube.com/iframe_api";
         const firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+        // Метод Node.insertBefore() добавляет элемент в список дочерних элементов родителя перед указанным элементом.
         this.bindTriggers();
         this.bindCloseBtn();
     }
