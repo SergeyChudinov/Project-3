@@ -5075,7 +5075,7 @@ window.addEventListener('DOMContentLoaded', function () {
   "use strict";
 
   var mainSlider = new _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__["default"]({
-    container: '.slider',
+    container: '.page',
     btns: '.next'
   });
   mainSlider.render();
@@ -5139,8 +5139,12 @@ function () {
 
     this.oldOfficer = document.querySelector(oldOfficer);
     this.newOfficer = document.querySelector(newOfficer);
-    this.oldItems = this.oldOfficer.querySelectorAll(items);
-    this.newItems = this.newOfficer.querySelectorAll(items);
+
+    try {
+      this.oldItems = this.oldOfficer.querySelectorAll(items);
+      this.newItems = this.newOfficer.querySelectorAll(items);
+    } catch (e) {}
+
     this.oldCounter = 0;
     this.newCounter = 0;
   }
@@ -5208,12 +5212,14 @@ function () {
   }, {
     key: "init",
     value: function init() {
-      // this.hideItems();
-      this.hideItems(this.oldItems);
-      this.hideItems(this.newItems); // this.bindTriggers();
+      try {
+        // this.hideItems();
+        this.hideItems(this.oldItems);
+        this.hideItems(this.newItems); // this.bindTriggers();
 
-      this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
-      this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+        this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
+        this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+      } catch (e) {}
     }
   }]);
 
@@ -5634,29 +5640,31 @@ function (_Slider) {
       var _this2 = this;
 
       try {
-        this.hanson = document.querySelector('.hanson');
+        try {
+          this.hanson = document.querySelector('.hanson');
+        } catch (e) {}
+
+        this.btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            _this2.plusSlides(1);
+
+            _this2.slides[_this2.slideIndex - 1].classList.remove('slideInDown');
+
+            _this2.slides[_this2.slideIndex - 1].classList.add('slideInUp');
+          });
+          btn.parentNode.previousElementSibling.addEventListener('click', function (e) {
+            e.preventDefault();
+            _this2.slideIndex = 1;
+
+            _this2.showSlides(_this2.slideIndex);
+
+            _this2.slides[_this2.slideIndex - 1].classList.remove('slideInUp');
+
+            _this2.slides[_this2.slideIndex - 1].classList.add('slideInDown');
+          });
+        });
+        this.showSlides(this.slideIndex);
       } catch (e) {}
-
-      this.btns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          _this2.plusSlides(1);
-
-          _this2.slides[_this2.slideIndex - 1].classList.remove('slideInDown');
-
-          _this2.slides[_this2.slideIndex - 1].classList.add('slideInUp');
-        });
-        btn.parentNode.previousElementSibling.addEventListener('click', function (e) {
-          e.preventDefault();
-          _this2.slideIndex = 1;
-
-          _this2.showSlides(_this2.slideIndex);
-
-          _this2.slides[_this2.slideIndex - 1].classList.remove('slideInUp');
-
-          _this2.slides[_this2.slideIndex - 1].classList.add('slideInDown');
-        });
-      });
-      this.showSlides(this.slideIndex);
     }
   }]);
 
@@ -5836,31 +5844,33 @@ function (_Slider) {
     value: function init() {
       var _this5 = this;
 
-      this.container.style.cssText = "\n            display: flex;\n            flex-wrap: wrap;\n            overflow: hidden;\n            align-items: flex-start;\n        ";
-      this.bindTriggers();
-      this.decorizeSlides();
+      try {
+        this.container.style.cssText = "\n            display: flex;\n            flex-wrap: wrap;\n            overflow: hidden;\n            align-items: flex-start;\n        ";
+        this.bindTriggers();
+        this.decorizeSlides();
 
-      if (this.autoplay) {
-        this.activateAnimation();
-        this.container.addEventListener('mouseenter', function () {
-          clearInterval(_this5.paused);
-        });
-        this.container.addEventListener('mouseleave', function () {
-          _this5.activateAnimation();
-        });
-        this.next.addEventListener('mouseenter', function () {
-          clearInterval(_this5.paused);
-        });
-        this.next.addEventListener('mouseleave', function () {
-          _this5.activateAnimation();
-        });
-        this.prev.addEventListener('mouseenter', function () {
-          clearInterval(_this5.paused);
-        });
-        this.prev.addEventListener('mouseleave', function () {
-          _this5.activateAnimation();
-        });
-      }
+        if (this.autoplay) {
+          this.activateAnimation();
+          this.container.addEventListener('mouseenter', function () {
+            clearInterval(_this5.paused);
+          });
+          this.container.addEventListener('mouseleave', function () {
+            _this5.activateAnimation();
+          });
+          this.next.addEventListener('mouseenter', function () {
+            clearInterval(_this5.paused);
+          });
+          this.next.addEventListener('mouseleave', function () {
+            _this5.activateAnimation();
+          });
+          this.prev.addEventListener('mouseenter', function () {
+            clearInterval(_this5.paused);
+          });
+          this.prev.addEventListener('mouseleave', function () {
+            _this5.activateAnimation();
+          });
+        }
+      } catch (e) {}
     }
   }]);
 
@@ -5903,7 +5913,11 @@ var Slider = function Slider() {
   _classCallCheck(this, Slider);
 
   this.container = document.querySelector(container);
-  this.slides = this.container.children;
+
+  try {
+    this.slides = this.container.children;
+  } catch (e) {}
+
   this.btns = document.querySelectorAll(btns);
   this.next = document.querySelector(next);
   this.prev = document.querySelector(prev);

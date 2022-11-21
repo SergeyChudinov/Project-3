@@ -2,8 +2,10 @@ export default class Diffeence {
     constructor(oldOfficer, newOfficer, items) {
         this.oldOfficer = document.querySelector(oldOfficer);
         this.newOfficer = document.querySelector(newOfficer);
-        this.oldItems = this.oldOfficer.querySelectorAll(items);
-        this.newItems = this.newOfficer.querySelectorAll(items);
+        try {
+            this.oldItems = this.oldOfficer.querySelectorAll(items);
+            this.newItems = this.newOfficer.querySelectorAll(items);
+        } catch(e) {}
         this.oldCounter = 0;
         this.newCounter = 0;
     }
@@ -71,12 +73,14 @@ export default class Diffeence {
     // }
 
     init() {
-        // this.hideItems();
-        this.hideItems(this.oldItems);
-        this.hideItems(this.newItems);
-    
-        // this.bindTriggers();
-        this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
-        this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+        try {
+            // this.hideItems();
+            this.hideItems(this.oldItems);
+            this.hideItems(this.newItems);
+        
+            // this.bindTriggers();
+            this.bindTriggers(this.oldOfficer, this.oldItems, this.oldCounter);
+            this.bindTriggers(this.newOfficer, this.newItems, this.newCounter);
+        } catch(e) {}
     }
 }
