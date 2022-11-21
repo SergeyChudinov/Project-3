@@ -2,8 +2,9 @@ import MainSlider from './modules/slider/slider-main';
 import MiniSlider from './modules/slider/slider-mini';
 import VideoPlayer from './modules/playVideo';
 import Diffeence from './modules/difference';
-// import Mask from './modules/mask';
 import Form from './modules/forms';
+import ShowInfo from './modules/showInfo';
+import Download from './modules/download';
 
 window.addEventListener('DOMContentLoaded', () => {
     "use strict";
@@ -55,6 +56,10 @@ window.addEventListener('DOMContentLoaded', () => {
     new Diffeence('.officerold', '.officernew', '.officer__card-item').init();
 
     new Form('form').init();
+
+    new ShowInfo('.plus').init();
+
+    new Download('.download').init()
 });
 
 
