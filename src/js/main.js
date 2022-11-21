@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
     "use strict";
 
     const mainSlider = new MainSlider({
-        container : '.slider',
+        container : '.page',
         btns : '.next'
     });
     mainSlider.render();
