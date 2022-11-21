@@ -70,8 +70,12 @@ export default class MiniSlider extends Slider {
     }
 
     bindTriggers() {
-        this.next.addEventListener('click', () => this.nextSlide());
-        this.prev.addEventListener('click', () => this.prevSlide());
+        this.next.forEach(item => {
+            item.addEventListener('click', () => this.nextSlide());
+        });
+        this.prev.forEach(item => {
+            item.addEventListener('click', () => this.prevSlide());
+        });
     }
     
     activateAnimation() {
@@ -81,38 +85,42 @@ export default class MiniSlider extends Slider {
     init() {
         try {
             this.container.style.cssText = `
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
-            align-items: flex-start;
-        `;
-        this.bindTriggers();
-        this.decorizeSlides();
+                display: flex;
+                flex-wrap: wrap;
+                overflow: hidden;
+                align-items: flex-start;
+            `;
+            this.bindTriggers();
+            this.decorizeSlides();
         
-        if (this.autoplay) {
-            this.activateAnimation(); 
+            if (this.autoplay) {
+                this.activateAnimation(); 
 
-            this.container.addEventListener('mouseenter', () => {
-                clearInterval(this.paused);
-            });
-            this.container.addEventListener('mouseleave', () => {
-                this.activateAnimation();
-            });
+                this.container.addEventListener('mouseenter', () => {
+                    clearInterval(this.paused);
+                });
+                this.container.addEventListener('mouseleave', () => {
+                    this.activateAnimation();
+                });
 
-            this.next.addEventListener('mouseenter', () => {
-                clearInterval(this.paused);
-            });
-            this.next.addEventListener('mouseleave', () => {
-                this.activateAnimation();
-            });
+                this.next.forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        clearInterval(this.paused);
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        this.activateAnimation();
+                    });
+                });
 
-            this.prev.addEventListener('mouseenter', () => {
-                clearInterval(this.paused);
-            });
-            this.prev.addEventListener('mouseleave', () => {
-                this.activateAnimation();
-            });
-        }
+                this.prev.forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        clearInterval(this.paused);
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        this.activateAnimation();
+                    });
+                });
+            }
         } catch(e) {}
     }
 }

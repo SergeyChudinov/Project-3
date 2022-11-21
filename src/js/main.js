@@ -8,11 +8,19 @@ import Form from './modules/forms';
 window.addEventListener('DOMContentLoaded', () => {
     "use strict";
 
-    const mainSlider = new MainSlider({
+    const slider = new MainSlider({
         container : '.page',
-        btns : '.next'
+        btns : 'a.next'
     });
-    mainSlider.render();
+    slider.render();
+
+    const modulePageSlider = new MainSlider({
+        container : '.moduleapp',
+        btns : 'a.next',
+        next: '.nextmodule',
+        prev : '.prevmodule'
+    });
+    modulePageSlider.render();
 
     const showUpSlider = new MiniSlider({
         container : '.showup__content-slider',
