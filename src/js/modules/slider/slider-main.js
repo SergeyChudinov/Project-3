@@ -37,27 +37,50 @@ export default class MainSlider extends Slider {
         this.showSlides(this.slideIndex += n);
     }
 
+    bimdTriggers() {
+        this.btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.plusSlides(1);
+                this.slides[this.slideIndex - 1].classList.remove('slideInDown');
+                this.slides[this.slideIndex - 1].classList.add('slideInUp');
+            });
+            btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.slideIndex = 1;
+                this.showSlides(this.slideIndex);
+                this.slides[this.slideIndex - 1].classList.remove('slideInUp');
+                this.slides[this.slideIndex - 1].classList.add('slideInDown');
+            })
+        });
+
+        this.prev.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation(); // отменяем всплытие события
+                e.preventDefault();
+                this.plusSlides(-1);
+                this.slides[this.slideIndex - 1].classList.remove('slideInUp');
+                this.slides[this.slideIndex - 1].classList.add('slideInDown');
+            });
+        });
+        this.next.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation(); // отменяем всплытие события
+                e.preventDefault();
+                this.plusSlides(1);
+                this.slides[this.slideIndex - 1].classList.remove('slideInDown');
+                this.slides[this.slideIndex - 1].classList.add('slideInUp');
+            });
+        });
+    }
+
     render() {
-        try {
+        if (this.container) {
             try {
                 this.hanson = document.querySelector('.hanson');
             } catch(e) {}
             
-            this.btns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.plusSlides(1);
-                    this.slides[this.slideIndex - 1].classList.remove('slideInDown');
-                    this.slides[this.slideIndex - 1].classList.add('slideInUp');
-                });
-                btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.slideIndex = 1;
-                    this.showSlides(this.slideIndex);
-                    this.slides[this.slideIndex - 1].classList.remove('slideInUp');
-                    this.slides[this.slideIndex - 1].classList.add('slideInDown');
-                })
-            });
             this.showSlides(this.slideIndex);
-        } catch(e) {}
+            this.bimdTriggers();
+        }
     }
 }
